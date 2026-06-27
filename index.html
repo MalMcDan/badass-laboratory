@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Badass Laboratory</title>
+  <meta name="description" content="Badass Laboratory builds practical software, mobile apps, AI tools, automations, and digital products for real humans doing badass things." />
+  <style>
+    :root {
+      --bg: #050507;
+      --panel: rgba(255,255,255,.07);
+      --panel2: rgba(255,255,255,.11);
+      --text: #ffffff;
+      --muted: #b8b8c8;
+      --purple: #a855f7;
+      --blue: #38bdf8;
+      --pink: #ec4899;
+      --line: rgba(255,255,255,.15);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(168,85,247,.28), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(56,189,248,.20), transparent 28%),
+        radial-gradient(circle at 50% 90%, rgba(236,72,153,.16), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .08;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(5,5,7,.72);
+      border-bottom: 1px solid var(--line);
+    }
+    nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .95rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 0 0 30px rgba(168,85,247,.55);
+      display: grid;
+      place-items: center;
+      font-weight: 1000;
+    }
+    .links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .links a, a { color: var(--text); text-decoration: none; }
+    .links a { color: var(--muted); font-size: .92rem; }
+    .links a:hover { color: var(--blue); }
+    main { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
+    .hero { min-height: 82vh; display: grid; align-items: center; padding: 70px 0; }
+    .badge {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: .92rem;
+      margin-bottom: 24px;
+    }
+    .pulse {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 18px var(--blue);
+    }
+    h1 {
+      font-size: clamp(3.3rem, 9vw, 8.5rem);
+      line-height: .86;
+      margin: 0;
+      letter-spacing: -.08em;
+      text-transform: uppercase;
+    }
+    .gradient {
+      background: linear-gradient(90deg, #fff, #d8b4fe, #7dd3fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      color: var(--muted);
+      max-width: 720px;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.65;
+      margin: 28px 0 34px;
+    }
+    .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-weight: 800;
+      background: rgba(255,255,255,.08);
+      transition: .2s ease;
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff;
+      box-shadow: 0 0 34px rgba(168,85,247,.35);
+      border: none;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 34px rgba(56,189,248,.22);
+    }
+    section { padding: 72px 0; }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1;
+      margin: 0 0 18px;
+      letter-spacing: -.04em;
+    }
+    .section-copy {
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      margin-bottom: 28px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--panel2), var(--panel));
+      border-radius: 26px;
+      padding: 24px;
+      min-height: 235px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.28);
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -80px -80px auto auto;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(168,85,247,.38), transparent 68%);
+    }
+    .icon { font-size: 2.2rem; margin-bottom: 18px; }
+    .card h3 { font-size: 1.4rem; margin: 0 0 12px; }
+    .card p { color: var(--muted); line-height: 1.65; margin: 0; }
+    .lab-panel {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .terminal {
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(0,0,0,.45);
+      overflow: hidden;
+      box-shadow: 0 20px 70px rgba(0,0,0,.3);
+    }
+    .terminal-top {
+      display: flex;
+      gap: 7px;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .red { background: #fb7185; }
+    .yellow { background: #facc15; }
+    .green { background: #4ade80; }
+    .terminal pre {
+      margin: 0;
+      padding: 22px;
+      white-space: pre-wrap;
+      color: #d8b4fe;
+      line-height: 1.7;
+      font-size: .95rem;
+    }
+    .contact {
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      padding: 54px 22px;
+      background:
+        linear-gradient(135deg, rgba(168,85,247,.20), rgba(56,189,248,.12)),
+        rgba(255,255,255,.05);
+    }
+    .email {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: clamp(1.1rem, 3vw, 1.7rem);
+      font-weight: 900;
+      color: #fff;
+      word-break: break-word;
+    }
+    footer {
+      padding: 34px 22px 50px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    @media (max-width: 800px) {
+      .links { display: none; }
+      .grid, .lab-panel { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      h1 { font-size: clamp(3.5rem, 18vw, 5.5rem); }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <header>
+    <nav>
+      <a class="brand" href="#">
+        <span class="logo">BL</span>
+        <span>Badass Laboratory</span>
+      </a>
+      <div class="links">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <div class="badge"><span class="pulse"></span> Independent software studio / chaos lab</div>
+        <h1>Build.<br><span class="gradient">Experiment.</span><br>Launch.</h1>
+        <p>
+          Badass Laboratory builds practical software, mobile apps, AI tools, automations,
+          and digital products for real humans doing badass things.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#projects">Explore the Lab</a>
+          <a class="btn" href="mailto:badasshuman@badasslaboratory.com">Contact</a>
+        </div>
+      </div>
+    </section>
+    <section id="projects">
+      <h2 class="section-title">Current experiments.</h2>
+      <p class="section-copy">
+        Simple tools, useful systems, and apps built from actual life instead of boardroom buzzwords.
+      </p>
+      <div class="grid">
+        <article class="card">
+          <div class="icon">🏍️</div>
+          <h3>Kickstands Up</h3>
+          <p>Motorcycle route planning built by riders, for riders. Less planning. More riding.</p>
+        </article>
+        <article class="card">
+          <div class="icon">🍳</div>
+          <h3>Recipe Wheel</h3>
+          <p>Meal planning with recipes, grocery lists, pantry rules, and less “what’s for dinner?” chaos.</p>
+        </article>
+        <article class="card">
+          <div class="icon">🤖</div>
+          <h3>AI & Automation</h3>
+          <p>Dashboards, Google Workspace tools, scripts, workflows, and practical AI systems.</p>
+        </article>
+      </div>
+    </section>
+    <section id="about">
+      <div class="lab-panel">
+        <div>
+          <h2 class="section-title">Software with a pulse.</h2>
+          <p class="section-copy">
+            Founded by Mallie McDaniel, Badass Laboratory is where practical engineering meets
+            real-life problem solving. The mission is simple: build technology that saves time,
+            reduces stress, and gives people better tools to manage the messy parts of life.
+          </p>
+          <p class="section-copy">
+            This is not corporate software in a gray suit. This is useful tech with personality.
+          </p>
+        </div>
+        <div class="terminal">
+          <div class="terminal-top">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <pre>$ status
+building...
+
+$ focus
+mobile apps
+automation
+AI tools
+dashboards
+real-world problem solving
+
+$ rule
+make it useful.
+make it human.
+make it badass.</pre>
+        </div>
+      </div>
+    </section>
+    <section id="contact">
+      <div class="contact">
+        <h2 class="section-title">Need something built?</h2>
+        <p class="section-copy" style="margin-left:auto;margin-right:auto;">
+          Questions, collaborations, support, or project ideas can start here.
+        </p>
+        <a class="email" href="mailto:badasshuman@badasslaboratory.com">
+          badasshuman@badasslaboratory.com
+        </a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    © 2026 Badass Laboratory. Built, experimented, and launched.
+  </footer>
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", e => {
+        const target = document.querySelector(link.getAttribute("href"));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+  </script>
+</body>
+</html>
