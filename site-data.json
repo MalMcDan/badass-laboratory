@@ -1,0 +1,68 @@
+{
+  "company": {
+    "name": "Badass Laboratory",
+    "description": "Practical apps and digital tools for real humans doing real-life things: riding, planning, organizing, automating, and making the chaos easier to manage.",
+    "email": "badasshuman@badasslaboratory.com"
+  },
+  "projects": [
+    {
+      "name": "Kickstands Up",
+      "shortName": "KSU",
+      "status": "Beta",
+      "statusColor": "green",
+      "emoji": "\ud83c\udfcd\ufe0f",
+      "description": "A motorcycle route planning app built for riders who want less planning and more riding.",
+      "video": "videos/ksu-demo.mp4",
+      "tags": [
+        "Motorcycle routing",
+        "Route previews",
+        "Beta build"
+      ]
+    },
+    {
+      "name": "Hearth & Hoard",
+      "shortName": "H&H",
+      "status": "Under Development",
+      "statusColor": "gold",
+      "emoji": "\ud83c\udfe0",
+      "description": "A household planning and organization app being shaped around practical systems and everyday chaos control.",
+      "video": "",
+      "tags": [
+        "Household systems",
+        "Planning tools",
+        "Active development"
+      ]
+    },
+    {
+      "name": "Spin-the-Wheel Meal Planner",
+      "shortName": "Meal Wheel",
+      "status": "Beginning Stages",
+      "statusColor": "purple",
+      "emoji": "\ud83c\udf7d\ufe0f",
+      "description": "A meal planning app concept designed to make recipe selection, grocery planning, and weekly menus less annoying.",
+      "video": "",
+      "tags": [
+        "Meal planning",
+        "Recipes",
+        "Grocery lists"
+      ]
+    }
+  ],
+  "updates": [
+    {
+      "date": "June 28, 2026",
+      "title": "Badass Laboratory site launched",
+      "note": "The first one-page project dashboard is live."
+    },
+    {
+      "date": "June 28, 2026",
+      "title": "KSU beta demo added",
+      "note": "Kickstands Up is now featured as the current beta app."
+    },
+    {
+      "date": "June 28, 2026",
+      "title": "Hearth & Hoard added",
+      "note": "H&H is listed as an app under active development."
+    }
+  ]
+}
