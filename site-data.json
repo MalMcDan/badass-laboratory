@@ -1,0 +1,70 @@
+{
+  "company": {
+    "name": "Badass Laboratory",
+    "description": "A small software workshop where everyday problems become practical tools.",
+    "email": "badasshuman@badasslaboratory.com",
+    "patreon": "https://www.patreon.com/cw/BadassLaboratory",
+    "supportBlurb": "Everything here is free to explore when available. I don\u2019t expect anyone to support this work, but if you believe in calm, practical software made by a real person, Patreon helps me keep building."
+  },
+  "projects": [
+    {
+      "name": "Kickstands Up",
+      "shortName": "KSU",
+      "status": "Beta",
+      "statusColor": "green",
+      "emoji": "\ud83c\udfcd\ufe0f",
+      "description": "Helping riders spend less time planning and more time riding.",
+      "video": "videos/ksu-demo.mp4",
+      "tags": [
+        "Motorcycle routing",
+        "Route previews",
+        "Beta build"
+      ]
+    },
+    {
+      "name": "Hearth & Hoard",
+      "shortName": "H&H",
+      "status": "Under Development",
+      "statusColor": "gold",
+      "emoji": "\ud83c\udfe0",
+      "description": "A calm place for the people, projects, routines, recipes, documents, and everyday responsibilities that make a house feel like home.",
+      "video": "videos/hearth-and-hoard-demo.mp4",
+      "tags": [
+        "Household systems",
+        "Planning tools",
+        "Active development"
+      ]
+    },
+    {
+      "name": "Spin-the-Wheel Meal Planner",
+      "shortName": "Meal Wheel",
+      "status": "Beginning Stages",
+      "statusColor": "purple",
+      "emoji": "\ud83c\udf7d\ufe0f",
+      "description": "One less decision at the end of a long day.",
+      "video": "",
+      "tags": [
+        "Meal planning",
+        "Recipes",
+        "Grocery lists"
+      ]
+    }
+  ],
+  "updates": [
+    {
+      "date": "June 28, 2026",
+      "title": "Hearth & Hoard: Under Development",
+      "note": "H&H v31 is created and working. Development is currently moving into v32."
+    },
+    {
+      "date": "June 28, 2026",
+      "title": "Badass Laboratory site launched",
+      "note": "The workshop has a home."
+    },
+    {
+      "date": "June 28, 2026",
+      "title": "KSU beta demo added",
+      "note": "Kickstands Up is now featured as the current beta app."
+    }
+  ]
+}

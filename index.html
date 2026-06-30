@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Badass Laboratory</title>
+  <meta name="description" content="Badass Laboratory is a small software workshop for everyday life." />
+
+  <style>
+    :root {
+      --bg: #100812;
+      --bg-deep: #08060b;
+      --ink: #fff7fb;
+      --muted: #d7c5d7;
+      --soft: #fff1dc;
+      --panel: rgba(255, 244, 252, 0.075);
+      --panel-strong: rgba(255, 244, 252, 0.13);
+      --line: rgba(255, 241, 220, 0.18);
+      --violet: #7c3aed;
+      --lavender: #c084fc;
+      --rose: #fb7185;
+      --ember: #f59e0b;
+      --teal: #67e8f9;
+      --green: #86efac;
+      --gold: #facc15;
+      --shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at 15% 8%, rgba(192, 132, 252, .22), transparent 30%),
+        radial-gradient(circle at 85% 5%, rgba(245, 158, 11, .16), transparent 28%),
+        radial-gradient(circle at 50% 92%, rgba(124, 58, 237, .24), transparent 38%),
+        linear-gradient(180deg, var(--bg), var(--bg-deep) 52%, var(--bg));
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .055;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--line);
+      background: rgba(16, 8, 18, .78);
+      backdrop-filter: blur(18px);
+    }
+
+    nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .9rem;
+    }
+
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--violet), var(--rose), var(--ember));
+      box-shadow: 0 0 32px rgba(240, 171, 252, .42);
+      font-weight: 1000;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .nav-links a:hover { color: var(--lavender); }
+
+    main {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    .hero {
+      min-height: 82vh;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 42px;
+      align-items: center;
+      padding: 90px 0 70px;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 244, 252, .07);
+      font-size: .92rem;
+      margin-bottom: 24px;
+    }
+
+    .spark {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--ember);
+      box-shadow: 0 0 18px var(--ember);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.1rem, 8vw, 7.4rem);
+      line-height: .9;
+      letter-spacing: -.075em;
+      text-transform: uppercase;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, var(--soft), var(--lavender), var(--teal));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 820px;
+      margin: 28px 0 34px;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.34rem);
+    }
+
+    .buttons, .tag-list, .status-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-weight: 850;
+      border: 1px solid var(--line);
+      background: rgba(255, 244, 252, .08);
+      transition: .2s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--violet), var(--rose));
+      border: 0;
+      box-shadow: 0 0 34px rgba(240, 171, 252, .22);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(240, 171, 252, .18);
+    }
+
+    .workbench {
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background:
+        linear-gradient(180deg, var(--panel-strong), var(--panel)),
+        rgba(27, 16, 32, .62);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      transform: rotate(1deg);
+    }
+
+    .workbench h2 {
+      margin: 0 0 14px;
+      letter-spacing: -.04em;
+      font-size: 1.65rem;
+    }
+
+    .bench-item {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(0,0,0,.18);
+      margin-top: 12px;
+    }
+
+    .bench-item strong { color: var(--soft); }
+    .bench-item span { display: block; color: var(--muted); font-size: .93rem; }
+
+    section { padding: 62px 0; }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: clamp(2.1rem, 4vw, 3.6rem);
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    .section-copy {
+      max-width: 860px;
+      margin: 0 0 30px;
+      color: var(--muted);
+      font-size: 1.07rem;
+      line-height: 1.82;
+    }
+
+    .panel, .project, .service-card, .support-card, .contact-card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, var(--panel-strong), var(--panel)),
+        rgba(27, 16, 32, .58);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 30px;
+    }
+
+    .panel p {
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-size: 1.07rem;
+    }
+
+    .panel p:last-child { margin-bottom: 0; }
+
+    .workbench-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .project {
+      padding: 28px;
+      overflow: hidden;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(260px,420px);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .project-kicker {
+      margin-bottom: 10px;
+      color: var(--ember);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 900;
+      font-size: .78rem;
+    }
+
+    .project h3 {
+      margin: 0 0 14px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -.05em;
+      line-height: 1;
+    }
+
+    .project p {
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-size: 1.03rem;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      background: rgba(255,244,252,.075);
+      color: #ffeefa;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 11px;
+      font-size: .86rem;
+    }
+
+    .phone-frame {
+      width: min(100%,390px);
+      margin: 0 auto;
+      padding: 12px;
+      border: 1px solid rgba(255,241,220,.22);
+      background:
+        linear-gradient(180deg, rgba(255,241,220,.12), rgba(255,244,252,.04)),
+        rgba(0,0,0,.35);
+      border-radius: 34px;
+      box-shadow: 0 30px 100px rgba(0,0,0,.45), 0 0 45px rgba(124,58,237,.16);
+    }
+
+    .phone-frame video {
+      display: block;
+      width: 100%;
+      max-height: 650px;
+      border-radius: 24px;
+      background: #000;
+    }
+
+    .placeholder {
+      min-height: 320px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 30px;
+      border-radius: 24px;
+      background: rgba(0,0,0,.28);
+      color: var(--muted);
+    }
+
+    .placeholder .big {
+      display: block;
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .service-card {
+      padding: 24px;
+    }
+
+    .service-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+    }
+
+    .service-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .timeline {
+      border-left: 1px solid var(--line);
+      margin-left: 10px;
+      padding-left: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .update {
+      position: relative;
+      border: 1px solid var(--line);
+      background: rgba(255,244,252,.065);
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .update::before {
+      content: "";
+      position: absolute;
+      left: -31px;
+      top: 22px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--lavender);
+      box-shadow: 0 0 18px var(--lavender);
+    }
+
+    .update time {
+      color: var(--lavender);
+      font-size: .86rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+    }
+
+    .update h3 { margin: 8px 0; }
+    .update p { margin: 0; color: var(--muted); }
+
+    .support-card, .contact-card {
+      text-align: center;
+      padding: 54px 22px;
+      background:
+        linear-gradient(135deg, rgba(124,58,237,.20), rgba(245,158,11,.10), rgba(251,113,133,.11)),
+        rgba(255,244,252,.05);
+    }
+
+    .email {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: clamp(1.08rem,3vw,1.7rem);
+      font-weight: 900;
+      color: var(--soft);
+      word-break: break-word;
+    }
+
+    footer {
+      padding: 34px 22px 50px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 64px; }
+      .workbench { transform: none; }
+      h1 { font-size: clamp(3rem, 15vw, 5.4rem); }
+      .project-grid { grid-template-columns: 1fr; }
+      .service-grid { grid-template-columns: 1fr; }
+      .project { padding: 20px; border-radius: 26px; }
+      .phone-frame { max-width: 360px; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <nav>
+    <a class="brand" href="#"><span class="logo">BL</span><span>Badass Laboratory</span></a>
+    <div class="nav-links">
+      <a href="#workbench">Workbench</a>
+      <a href="#why">Why</a>
+      <a href="#custom">Custom Builds</a>
+      <a href="#updates">Notes</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow"><span class="spark"></span> A software workshop for everyday life</div>
+      <h1>Practical software for the <span class="gradient">messy parts</span> of being human.</h1>
+      <p class="hero-copy">
+        Badass Laboratory is a small workshop where everyday problems become useful tools.
+        I build what I wish existed, share what is on the workbench, and occasionally help other people turn their own messy workflows into calm, usable software.
+      </p>
+      <div class="buttons">
+        <a class="btn primary" href="#workbench">See what’s on the workbench</a>
+        <a class="btn" href="#custom">Custom builds</a>
+      </div>
+    </div>
+
+    <aside class="workbench" aria-label="Workbench preview">
+      <h2>On the workbench</h2>
+      <div class="bench-item"><strong>🏍 Kickstands Up</strong><span>Beta testing motorcycle route planning.</span></div>
+      <div class="bench-item"><strong>🏠 Hearth & Hoard</strong><span>Building a calmer home management system.</span></div>
+      <div class="bench-item"><strong>🍽 Meal Wheel</strong><span>Early concept for easier meal decisions.</span></div>
+    </aside>
+  </section>
+
+  <section id="why">
+    <h2 class="section-title">Why this exists.</h2>
+    <div class="panel">
+      <p>Most software asks people to do more: more notifications, more dashboards, more tasks, more systems to maintain.</p>
+      <p>I am interested in something quieter.</p>
+      <p>I want software that helps people spend less energy keeping life together, so they have more room for the things that actually matter: riding, family, dinner, hobbies, rest, and being present in the life they already have.</p>
+      <p>Badass here does not mean climbing Mount Everest. It means handling ordinary Tuesdays a little more gracefully.</p>
+    </div>
+  </section>
+
+  <section id="workbench">
+    <h2 class="section-title">What’s on the workbench.</h2>
+    <p class="section-copy">
+      These are active experiments, not polished corporate products. Each one started as a real-life problem and is being shaped into something useful.
+    </p>
+    <div class="workbench-grid" id="project-list"></div>
+  </section>
+
+  <section id="custom">
+    <h2 class="section-title">Can I build something for you?</h2>
+    <p class="section-copy">
+      Sometimes people see something I have built and realize they have a similar problem. If your life, work, family, or small business has a repetitive task that feels harder than it should, I can help think through it.
+    </p>
+
+    <div class="service-grid">
+      <article class="service-card">
+        <h3>🧭 Workflow Mapping</h3>
+        <p>We untangle what is happening now, where things get stuck, and what actually needs to be easier.</p>
+      </article>
+      <article class="service-card">
+        <h3>🛠 Custom Tools</h3>
+        <p>Small apps, dashboards, automations, or trackers designed around how you naturally process information.</p>
+      </article>
+      <article class="service-card">
+        <h3>📦 Handoff Friendly</h3>
+        <p>The goal is not to trap you in a subscription. The goal is to build a useful solution you can actually use.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="updates">
+    <h2 class="section-title">Workbench notes.</h2>
+    <p class="section-copy">Small notes from the lab. No hype machine. Just what is being built.</p>
+    <div class="timeline" id="updates-list"></div>
+  </section>
+
+  <section id="support">
+    <div class="support-card">
+      <h2 class="section-title">Support the workshop.</h2>
+      <p class="section-copy" id="support-blurb" style="margin-left:auto;margin-right:auto;">
+        Everything here is free to explore when available. I don’t expect anyone to support this work,
+        but if you believe in calm, practical software made by a real person, Patreon helps me keep building.
+      </p>
+      <a class="btn primary" id="patreon-link" href="https://www.patreon.com/cw/BadassLaboratory" target="_blank" rel="noopener">Support the Lab</a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-card">
+      <h2 class="section-title">Pull up a chair.</h2>
+      <p class="section-copy" style="margin-left:auto;margin-right:auto;">
+        Have a messy workflow, a small app idea, or just want to follow what is being built? Start here.
+      </p>
+      <a class="email" id="email-link" href="mailto:badasshuman@badasslaboratory.com">badasshuman@badasslaboratory.com</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Built with curiosity, coffee, and the hope that everyday life can feel a little lighter.<br>
+  — Badass Human
+</footer>
+
+<script>
+const fallbackData = {
+  company: {
+    name: "Badass Laboratory",
+    email: "badasshuman@badasslaboratory.com",
+    patreon: "https://www.patreon.com/cw/BadassLaboratory",
+    supportBlurb: "Everything here is free to explore when available. I don’t expect anyone to support this work, but if you believe in calm, practical software made by a real person, Patreon helps me keep building."
+  },
+  projects: [
+    {
+      name: "Kickstands Up",
+      shortName: "KSU",
+      status: "Beta",
+      statusColor: "green",
+      emoji: "🏍️",
+      description: "Helping riders spend less time planning and more time riding.",
+      video: "videos/ksu-demo.mp4",
+      tags: ["Motorcycle routing", "Route previews", "Beta build"]
+    },
+    {
+      name: "Hearth & Hoard",
+      shortName: "H&H",
+      status: "Under Development",
+      statusColor: "gold",
+      emoji: "🏠",
+      description: "A calm place for the people, projects, routines, recipes, documents, and everyday responsibilities that make a house feel like home.",
+      video: "videos/hearth-and-hoard-demo.mp4",
+      tags: ["Household systems", "Planning tools", "Active development"]
+    },
+    {
+      name: "Spin-the-Wheel Meal Planner",
+      shortName: "Meal Wheel",
+      status: "Beginning Stages",
+      statusColor: "purple",
+      emoji: "🍽️",
+      description: "One less decision at the end of a long day.",
+      video: "",
+      tags: ["Meal planning", "Recipes", "Grocery lists"]
+    }
+  ],
+  updates: [
+    { date: "June 28, 2026", title: "Badass Laboratory site launched", note: "The workshop has a home." }
+  ]
+};
+
+function renderVideo(project) {
+  if (!project.video) {
+    return `
+      <div class="phone-frame">
+        <div class="placeholder">
+          <div>
+            <span class="big">${project.emoji || "🧪"}</span>
+            <strong>Demo coming soon</strong><br>
+            <span>${project.name} is still being shaped in the workshop.</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="phone-frame">
+      <video controls playsinline preload="metadata">
+        <source src="${project.video}" type="video/mp4">
+        Your browser does not support video.
+      </video>
+    </div>
+  `;
+}
+
+function renderProject(project) {
+  const tags = (project.tags || []).map(tag => `<span class="tag">${tag}</span>`).join("");
+  return `
+    <article class="project">
+      <div class="project-grid">
+        <div>
+          <div class="project-kicker">${project.status}</div>
+          <h3>${project.emoji || "🧪"} ${project.name}</h3>
+          <p>${project.description}</p>
+          <div class="tag-list">${tags}</div>
+        </div>
+        ${renderVideo(project)}
+      </div>
+    </article>
+  `;
+}
+
+function renderUpdate(update) {
+  return `
+    <article class="update">
+      <time>${update.date}</time>
+      <h3>${update.title}</h3>
+      <p>${update.note}</p>
+    </article>
+  `;
+}
+
+function renderSite(data) {
+  document.title = data.company?.name || "Badass Laboratory";
+
+  const email = data.company?.email || "badasshuman@badasslaboratory.com";
+  const emailLink = document.getElementById("email-link");
+  emailLink.href = `mailto:${email}`;
+  emailLink.textContent = email;
+
+  if (data.company?.patreon) document.getElementById("patreon-link").href = data.company.patreon;
+  if (data.company?.supportBlurb) document.getElementById("support-blurb").textContent = data.company.supportBlurb;
+
+  document.getElementById("project-list").innerHTML = (data.projects || []).map(renderProject).join("");
+  document.getElementById("updates-list").innerHTML = (data.updates || []).map(renderUpdate).join("");
+}
+
+async function loadSiteData() {
+  try {
+    const response = await fetch("site-data.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("site-data.json not found");
+    renderSite(await response.json());
+  } catch (error) {
+    renderSite(fallbackData);
+  }
+}
+
+loadSiteData();
+</script>
+</body>
+</html>
